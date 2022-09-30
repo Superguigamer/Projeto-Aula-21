@@ -12,7 +12,7 @@ function preload(){
   doorImg = loadImage("door.png");
   climberImg = loadImage("climber.png");
   ghostImg = loadImage("ghost-standing.png");
-  ghostjumpImg = loadAnimation("ghost-jumping.png");
+  ghostJumpImg = loadAnimation("ghost-jumping.png");
 }
 
 function setup() {
@@ -28,6 +28,7 @@ function setup() {
   ghost = createSprite(200,400,50,50);
   ghost.scale = 0.3;
   ghost.addAnimation("ghost", ghostImg);
+  ghost.addAnimation("jump", ghostJumpImg);
 }
 
 //escreva uma condição para a torre de rolagem infinita
@@ -40,7 +41,7 @@ function draw() {
   
   if (gameState === "play") {
 
-    ghost.velocityY = -0.3;
+    ghost.velocityY = -0.5;
 
     
     if(keyDown("left_arrow")){
@@ -57,11 +58,11 @@ function draw() {
     }
     if(keyDown("space")){
          ghost.velocityY = -10;
-         ghost.changeAnimation("ghost", ghostjumpImg);
-      // escreva o código para mover para cima quando a tecla espaço for pressionada
-      
+         ghost.changeAnimation("jump", ghostJumpImg);
     }
-  
+    else {
+      ghost.changeAnimation("ghost", ghostImg);
+    }
   ghost.velocityY = ghost.velocityY + 0.8;
   
       spawnDoors();
@@ -105,9 +106,9 @@ function spawnDoors()
     door.x = Math.round(random(120,400));
     climber.x = door.x;
     invisibleBlock.x = door.x;
-    door.velocityY = 2;
-    climber.velocityY = 2;
-    invisibleBlock.velocityY = 2;
+    door.velocityY = 5;
+    climber.velocityY = 5;
+    invisibleBlock.velocityY = 5;
     climber.visible = false
 
     //mude a profundidade do fantasma e da porta
